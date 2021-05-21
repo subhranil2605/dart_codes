@@ -8,7 +8,7 @@ class Cat{
   
   // factory constructor for Cat
   // that doesn't return the new constructor always, but returns an instance
-  Cat.fromMap(Map mapObject) {
+  factory Cat.fromMap(Map mapObject) {
     return Cat(mapObject['name'], mapObject['color']);
   }
 }
