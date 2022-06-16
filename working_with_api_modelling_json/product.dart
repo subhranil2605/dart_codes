@@ -29,8 +29,8 @@ class Product {
   String? brand;
   String? name;
   String? price;
-  dynamic priceSign;
-  dynamic currency;
+  dynamic priceSign;    // all values are null
+  dynamic currency;     // all values are null
   String? imageLink;
   String? productLink;
   String? websiteLink;
@@ -38,7 +38,7 @@ class Product {
   double? rating;
   String? category;
   String? productType;
-  List<dynamic>? tagList;
+  List<dynamic>? tagList;   // empty list
   DateTime? createdAt;
   DateTime? updatedAt;
   String? productApiUrl;
@@ -66,8 +66,7 @@ class Product {
       updatedAt: DateTime.parse(json["updated_at"]),
       productApiUrl: json["product_api_url"],
       apiFeaturedImage: json["api_featured_image"],
-      productColors: List<ProuctColor>.from(
-          json["product_colors"].map((x) => ProuctColor.fromJson(x))),
+      productColors: List<ProuctColor>.from(json["product_colors"].map((x) => ProuctColor.fromJson(x))),
     );
   }
 
@@ -92,8 +91,7 @@ class Product {
       "updated_at": updatedAt!.toIso8601String(),
       "product_api_url": productApiUrl,
       "api_featured_image": apiFeaturedImage,
-      "product_colors":
-          List<ProuctColor>.from(productColors!.map((x) => x.toJson())),
+      "product_colors": List<ProuctColor>.from(productColors!.map((x) => x.toJson())),
     };
   }
 }
@@ -121,15 +119,14 @@ class ProuctColor {
 
 
 // --------------------------------
-
+// Calling the api to get the data
 
 
 class RemoteService {
-  static var client = http.Client();
+  static var client = http.Client();    // static for using the one connection for the entire lifetime
 
   static Future<List<Product>?> fetchProducts() async {
-    var response = await client.get(Uri.parse(
-        "https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"));
+    var response = await client.get(Uri.parse("https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"));
     
     if(response.statusCode == 200) {
       var jsonString = response.body;
